@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* Страница Марси в аниме */
-router.get('/marci anime', function(req, res, next) {
+router.get('/marci_anime', function(req, res, next) {
   res.render('marci', {
   title: "Марси в аниме",
   picture: "images/marci_anime.jpg",
@@ -16,7 +16,7 @@ router.get('/marci anime', function(req, res, next) {
   });
 
   /* Страница Марси в доте */
-router.get('/marci dota', function(req, res, next) {
+router.get('/marci_dota', function(req, res, next) {
   res.render('marci', {
   title: "Марси в игре",
   picture: "images/in_dota_marci.jpg",
@@ -25,7 +25,7 @@ router.get('/marci dota', function(req, res, next) {
   });
 
   /* Страница промо Марси */
-router.get('/marci promo', function(req, res, next) {
+router.get('/marci_promo', function(req, res, next) {
   res.render('marci', {
   title: "Промо Марси",
   picture: "images/marci_promo.jpg",

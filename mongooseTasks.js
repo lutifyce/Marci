@@ -1,19 +1,18 @@
-var mongoose= require('mongoose')
+var mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
+var Adaptation = require("./models/adaptation").Adaptation
 
-var schema= mongoose.Schema({ name: String})
 
-schema.methods.sidekick= function(){
-console.log(this.get("name") + " let out a cheerful whistle")
-}
+var Adaptation = new Adaptation({
+title:"В игре",
+nick:"marci_in_game"
+})  
 
-var Ulti= mongoose.model('Ulti', schema)
 
-var spell= new Ulti({ name: 'Mirana'})
-spell.save(function(err) {
-spell.sidekick()
+console.log(Adaptation)
+Adaptation.save(function(err, adaptation, affected){
+console.log(adaptation.title)
 })
 
 
-
-
+  

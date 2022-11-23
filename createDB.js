@@ -9,8 +9,8 @@ var database = client.db("marci");
 database.dropDatabase()
 database = client.db("marci");
 const ulti = database.collection("ulti");
-const result = await ulti.insertOne({name:"Unleash"});
-console.log(`ulti ${result} documents were inserted`);
+const result = await ulti.insertMany(data);
+console.log(`${result.insertedCount} documents were inserted`);
 } finally {
 await client.close();
 }

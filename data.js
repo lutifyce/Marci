@@ -1,4 +1,4 @@
-vardata = [{
+var data = [{
   title:'Марси в аниме',
   nick:'marci_anime',
   avatar:'./images/marci_anime.jpg',

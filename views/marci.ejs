@@ -1,19 +1,5 @@
-<head>
-    
-  <title>
-      <%= title %>
-  </title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
+<% layout('./layout/page.ejs') %>
 
-<body>
-  <% layout('./layout/page.ejs') %>
-  <h1>
-      <%= title %>
-  </h1>
-  <img src="<%= picture %>" alt="" />
-  <h2>A few words about this agent: <%=desc%>
-  </h2>
-</body>
-
-</html>
+<h1><%= title %></h1>
+<img src="<%= picture %>"alt=""/>
+<h4>Несколько слов о нашем герое: <%=desc%></h4>

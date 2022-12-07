@@ -6,11 +6,13 @@ var marci = require("../models/marci").marci
 /* GET home page. */
 router.get('/', function(req, res, next) {
   marci.find({},{_id:0,title:1,nick:1},function(err,menu){
+  req.session.greeting = "Hi!!!",
       res.cookie('greeting', 'Hi!!!').render('index', {
-          title: 'Express',
-          menu: menu
-        });
-      })
-    });
+      title: 'Express',
+      menu: menu
+      });
+  })
+
+});
 
 module.exports = router;

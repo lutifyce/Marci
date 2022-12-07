@@ -6,11 +6,11 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/marci')
 var session = require("express-session")
-
+var marci = require('./routes/marci');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var marci = require('./routes/marci');
+
 
 
 var app = express();
@@ -31,7 +31,7 @@ app.use(session({
   cookie:{maxAge:60*1000},
   resave: true,
   saveUninitialized: true	
-  }))
+}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

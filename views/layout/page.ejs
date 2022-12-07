@@ -16,15 +16,12 @@
     <li class="nav-item">
     <a class="nav-link" href="/">Главная</a>
     </li>
-    <li class="nav-item">
-    <a class="nav-link" href="/marci/marci_in_game">Марси в доте</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link" href="/marci/marci_promo">Промо Марси</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link" href="/marci/marci_anime">Марси в аниме</a>
-    </li>
+    </ul>
+    <% menu.forEach(function(marci){ %>
+        <li class="nav-item">
+        <a class="nav-link" href="/marci/<%=marci.nick%>"><%=marci.title%></a>
+        </li>
+        <% }) %>        
     </ul>
     <ul class="navbar-nav navbar-right">
     <li>

@@ -3,19 +3,28 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/marci')
-var session = require("express-session")
-var marcis = require('./routes/marcis');
-var Marci = require("./models/marci").Marci
+var mysql2 = require('mysql2/promise');
+var session = require('express-session')
+var MySQLStore = require('express-mysql-session')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var marcis = require('./routes/marcis');
 
 var app = express();
 
+var options = {
+  host: 'localhost',
+  port: '3306',
+  user: 'root',
+  password: 'zxcluti',
+  database: 'marci'
+};
+var connection = mysql2.createPool(options)
+var sessionStore = new MySQLStore(options, connection);
+
 // view engine setup
-app.engine('ejs',require('ejs-locals'));
+app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -25,28 +34,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-var MongoStore = require('connect-mongo');(session);
 app.use(session({
-  secret: "marcis",
-  cookie:{maxAge:60*1000},
+  secret: 'marci',
+  key: 'sid',
+  store: sessionStore,
   resave: true,
   saveUninitialized: true,
-  store: MongoStore.create({mongoUrl: 'mongodb://127.0.0.1:27017/marci'})
-}))
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: 60 * 1000
+  }
+}));
 
-app.use(function(req,res,next){
-  req.session.counter = req.session.counter +1 || 1
+app.use(function (req, res, next) {
+  req.session.counter = req.session.counter + 1 || 1
   next()
-})
-
-app.use(function(req,res,next){
-  res.locals.nav = []
-  Marci.find(null,{_id:1,title:1,nick:1},function(err,result){
-      if(err) throw err
-      res.locals.nav = result
-      next()
-  })
 })
 
 app.use(require("./middleware/createMenu.js"))
@@ -56,13 +59,14 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/marcis', marcis);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+
+// поймать 404 и отправить обработчику ошибок
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

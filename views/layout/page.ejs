@@ -20,14 +20,15 @@
                     <a class="nav-link" href="/marcis/<%=marci.nick%>"><%=marci.title%></a>
                 </li>
                     <% })} %>
-                <div class="navbar-nav ms-auto nav navbar-nav navbar-right">
-                <%if(user){%>
-                    <form action="/logout" method="post">
-                        <button type="submit" class="btn btn-link">Log Out</button>
-                    </form>
-                       <% } else { %>
-                           <li><a href="/logreg">Log In</a></li>
-                       <% } %>
+                    <div class="navbar-nav ms-auto nav navbar-nav navbar-right">
+                        <%if (user.length > 0) { %>
+                          <form action="/logout" method="post">
+                            <button type="submit" class="nav__btn nav-item nav-link">Выйти</button>
+                          </form>
+                          <% } else { %>
+                            <a href="/logreg" class="nav-item nav-link">Войти</a>
+                            <% } %>
+                      </div>
                 </ul>
             </ul>
         </div>

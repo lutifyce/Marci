@@ -1,19 +1,20 @@
 var express = require('express')
 var router = express.Router()
+var db = require("../mySQLConnect.js");
 var checkAuth = require("./../middleware/checkAuth.js")
-var Marci = require("../models/marci").Marci
-var User = require("./../models/user").User
+//var Marci = require("../models/marci").Marci
+//var User = require("./../models/user").User
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    Marci.find({},{_id:0,title:1,nick:1},function(err,menu){
-      req.session.greeting = "Hi!!!",
-      res.cookie('greeting','Hi!!!').render('index', {
-                              title: 'Express',
-                              counter: req.session.counter
-                          });
-    })
-
+router.get('/', function (req, res, next) {
+  db.query(`SELECT title, nick FROM marcis`, (err, menu) => {
+    req.session.greeting = "HelloWorld",
+      res.cookie('gretting', 'HelloWorld').render('index', {
+        title: 'Express',
+        menu: menu,
+        counter: req.session.counter
+      })
+  });
 });
 router.get('/logreg', function(req, res, next) {
   res.render('logreg',{title: 'Вход', error:null});

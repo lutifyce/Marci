@@ -1,4 +1,4 @@
-var Marci = require("./../models/marci").Marci
+var Marci = require("../models/marci").Marci
 
 module.exports = function(req,res,next){
     res.locals.nav = []

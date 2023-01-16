@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+var checkAuth = require("./../middleware/checkAuth.js")
 var Marci = require("../models/marci").Marci
 var User = require("./../models/user").User
 
@@ -14,11 +15,17 @@ router.get('/', function(req, res, next) {
     })
 
 });
-/* GET login/registration page. */
 router.get('/logreg', function(req, res, next) {
-res.render('logreg',{title: 'Вход', error:null});
+  res.render('logreg',{title: 'Вход', error:null});
 });
-/* POST login/registration page. */
+
+router.post('/logout', function(req, res, next) {
+  req.session.destroy()
+  res.locals.user = null
+  res.redirect('/')
+});
+
+
 router.post('/logreg', function(req, res, next) {
   var username = req.body.username
   var password = req.body.password
@@ -31,8 +38,8 @@ router.post('/logreg', function(req, res, next) {
           } else {
                   res.render('logreg', {title: 'Вход', error:"Пароль не верный"})
           }
-     } else {
-     var user = new User({username:username,password:password})
+      } else {
+          var user = new User({username:username,password:password})
           user.save(function(err,user){
               if(err) return next(err)
               req.session.user = user._id
@@ -41,6 +48,4 @@ router.post('/logreg', function(req, res, next) {
     }
   })
 });
-
-
 module.exports = router;

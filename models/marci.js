@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 
-var marciSchema = new Schema({
+var MarciSchema = new Schema({
     title: String,
     nick: {
         type: String,
@@ -16,5 +16,5 @@ var marciSchema = new Schema({
         default: Date.now
     }
 })
-module.exports.marci = mongoose.model("Marci", marciSchema)
+module.exports.Marci = mongoose.model("marci", MarciSchema)
 

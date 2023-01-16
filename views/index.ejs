@@ -2,12 +2,16 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <% layout('./layout/page.ejs') %>
+
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Welcome to <%= title %></h1>
     <p>Счетчик: <%= counter %></p>
+    <% if(user) {%>
+      <% }else{ %>
+       <% } %>
   </body>
 </html>
